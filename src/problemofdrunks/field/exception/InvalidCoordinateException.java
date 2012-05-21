@@ -8,4 +8,11 @@ package problemofdrunks.field.exception;
  * To change this template use File | Settings | File Templates.
  */
 public class InvalidCoordinateException extends CoordinateException {
+    public InvalidCoordinateException() {}
+    public InvalidCoordinateException(String message) {
+        super(message);
+    }
+    public InvalidCoordinateException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

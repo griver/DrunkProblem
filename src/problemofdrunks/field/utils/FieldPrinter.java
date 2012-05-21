@@ -30,8 +30,7 @@ public class FieldPrinter {
                 System.out.println();
             }
         }catch (InvalidCoordinateException e) {
-            System.out.println("Error in loop running through the cells");
-            throw  new FieldPrinterException();
+            throw  new FieldPrinterException("Error in loop running through the cells", e);
         }
     }
 }

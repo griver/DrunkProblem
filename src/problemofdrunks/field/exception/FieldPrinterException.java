@@ -10,4 +10,11 @@ import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
  * To change this template use File | Settings | File Templates.
  */
 public class FieldPrinterException extends Exception {
+    public FieldPrinterException() {}
+    public FieldPrinterException(String message) {
+        super(message);
+    }
+    public FieldPrinterException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

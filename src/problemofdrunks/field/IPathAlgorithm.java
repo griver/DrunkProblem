@@ -1,6 +1,9 @@
 package problemofdrunks.field;
 
 
+import problemofdrunks.field.exception.InvalidPathArgumentException;
+import problemofdrunks.field.exception.PathFindException;
+
 import java.util.List;
 
 /**
@@ -11,12 +14,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IPathAlgorithm {
-    boolean  findPath(ICell startCell, ICell endCell );
+    boolean  findPath(ICell startCell, ICell endCell ) throws PathFindException, InvalidPathArgumentException;
 
+    List<ICell> getPath(ICell startCell, ICell endCell) throws PathFindException, InvalidPathArgumentException;
 
-    List<ICell> getPath(ICell startCell, ICell endCell);
-
-    ICell getNext(ICell startCell, ICell endCell);
+    ICell getNext(ICell startCell, ICell endCell) throws PathFindException, InvalidPathArgumentException;
 
     void setField(IField field);
 }

@@ -68,11 +68,9 @@ public class StandartBuilder implements IGameBuilder {
             game.registerActiveObject(beggarHouse);
 
         } catch (InvalidCoordinateException e) {
-            System.err.println("Invalid objects coordinates");
-            throw new GameBuilderException();
+            throw new GameBuilderException("Invalid objects coordinates", e);
         } catch (NotEmptyCellException e) {
-            System.err.println("Try to add object on occupied cell");
-            throw new GameBuilderException();
+            throw new GameBuilderException("Try to add object on occupied cell", e);
         }
 
         return game;

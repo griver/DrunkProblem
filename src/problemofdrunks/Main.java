@@ -26,17 +26,20 @@ public class Main {
             for(int i = 1; i<= 800; i++) {
                 game.nextStep();
 
-                if(i % 100 == 0) {
+               // if(i % 100 == 0) {
                     System.out.println("Ход номер: "+ Integer.toString(i));
                     FieldPrinter.print(game.getField());
-                }
+               // }
             }
         }catch (GameBuilderException e) {
             System.out.println("Exception occurred in buildGame() method");
+            e.printStackTrace();
         } catch (GameStepException e) {
             System.out.println("Game Error");
+            e.printStackTrace();
         } catch (FieldPrinterException e) {
             System.out.println("Exception occurred in FieldPrinter.print(IField field) method");
+            e.printStackTrace();
         }
     }
 }

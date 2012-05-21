@@ -2,9 +2,12 @@ package problemofdrunks.objects.moving;
 
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IPathAlgorithm;
+import problemofdrunks.field.exception.InvalidPathArgumentException;
+import problemofdrunks.field.exception.PathFindException;
 import problemofdrunks.objects.IFieldObject;
 import problemofdrunks.objects.IMovingObject;
 import problemofdrunks.objects.buildings.PoliceDistrict;
+import problemofdrunks.objects.exception.MakeActionException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,33 +40,35 @@ public class Policeman extends AMovingObject {
 
     @Override
     public void processColliding(Drunk object) {
-        if(object.getState() == DrunkStates.LYING) {
-            ICell drunkCell = object.getCell();
-            drunkCell.setFieldObject(null);
 
-            object.setCell(null);
+        if(object.getState() == DrunkStates.LYING) {
             drunk = object;
+            drunk.setCell(null);
+            target = district.getEntrance();
         }
     }
 
     @Override
-    public void makeAction() {
-        boolean  find = pathFinder.findPath(this.getCell(),this.target);
-        if(find) {
-            ICell next = pathFinder.getNext(this.getCell(),this.target);
-            if(next == target) {
-                if(next == district.getEntrance()) {  // вернулся к входу в участок
+    public void makeAction() throws MakeActionException {
+        try {
+            if(target == this.getCell())
+                if(target == district.getEntrance()) {
                     district.admitPoliceman(this);
-                } else { // дошел до пьяницы
-                    drunk = target.getFieldObject();
-                    drunk.setCell(null);
-                    target = district.getEntrance();
+                    return;
                 }
-            } else if(next.isEmpty()) {
-                this.setCell(next);
-            }
-        }
 
+            boolean  find = pathFinder.findPath(this.getCell(),this.target);
+
+            if(find) {
+                ICell next = pathFinder.getNext(this.getCell(),this.target);
+                if(next.isEmpty())
+                    this.setCell(next);
+                else
+                    next.getFieldObject().getColliding(this);
+            }
+        } catch (PathFindException e) {
+            throw new MakeActionException("at Policeman.makeAction()",e);
+        }
     }
     //===/Methods========================================================
 

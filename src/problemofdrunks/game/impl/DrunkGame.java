@@ -55,7 +55,7 @@ public class DrunkGame implements IGame {
                 object.makeAction();
             }
         } catch (MakeActionException e) {
-            throw new GameStepException();
+            throw new GameStepException("Exception in one of GameObjects", e);
         }
         return true;
     }

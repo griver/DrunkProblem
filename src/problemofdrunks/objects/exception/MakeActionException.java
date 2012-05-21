@@ -8,4 +8,11 @@ package problemofdrunks.objects.exception;
  * To change this template use File | Settings | File Templates.
  */
 public class MakeActionException  extends Exception  {
+    public MakeActionException() {}
+    public MakeActionException(String message) {
+        super(message);
+    }
+    public MakeActionException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

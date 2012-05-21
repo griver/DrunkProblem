@@ -85,8 +85,7 @@ public class Drunk extends AMovingObject {
                 obj.getColliding(this);
             }
         } catch(InvalidCoordinateException e) {
-            System.out.println("InvalidCoordinateExcetion in Drunk.makeAction()");
-            throw new MakeActionException();
+            throw new MakeActionException("Invalid Coordinate in Drunk.makeAction()",e);
         }
 
     }

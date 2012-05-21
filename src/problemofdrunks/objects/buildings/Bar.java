@@ -46,8 +46,7 @@ public class Bar implements IGameObject {
                     releaseDrunk();
             }
         }catch (CoordinateException e) {
-            System.err.println("Error in Bar.makeAction()");
-            throw new MakeActionException();
+            throw new MakeActionException("Error in Bar.makeAction()", e);
         }
     }
 
@@ -58,11 +57,10 @@ public class Bar implements IGameObject {
         try {
             field.addObject(newDrunk, entrance.getCoordinates());
         } catch(InvalidCoordinateException e) {
-            System.err.println("Invalid Entrance coordinate in Bar");
-            throw e;
+            throw new InvalidCoordinateException("Invalid Entrance coordinate in Bar", e);
         } catch (NotEmptyCellException e) {
-            System.err.println("Bar tried to add Drunk in occupied Cell");
-            throw e;
+            System.err.println();
+            throw new NotEmptyCellException("Bar tried to add Drunk in occupied Cell", e);
         }
         game.registerActiveObject(newDrunk);
     }

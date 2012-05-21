@@ -70,8 +70,7 @@ public class PoliceDistrict implements IGameObject {
                     }
                 }
             } catch (CoordinateException e) {
-                System.err.println("Error in PoliceDistrict action");
-                throw new MakeActionException();
+                throw new MakeActionException("Error in PoliceDistrict action", e);
             }
         }
     }
@@ -89,12 +88,10 @@ public class PoliceDistrict implements IGameObject {
             field.addObject(policeman, entrance.getCoordinates());
             game.registerActiveObject(policeman);
         } catch (InvalidCoordinateException e) {
-            System.err.println("Invalid entance coordinate (trying to add policeman) ");
-            throw e;
+            throw new InvalidCoordinateException("Invalid entrance coordinate", e);
 
         } catch (NotEmptyCellException e) {
-            System.err.println("Entance cell is already occupied (trying to add policeman)");
-            throw e;
+            throw new NotEmptyCellException("Entrance cell is already occupied", e);
         }
 
     }

@@ -3,6 +3,7 @@ package problemofdrunks.objects.moving;
 import problemofdrunks.field.IPathAlgorithm;
 import problemofdrunks.field.exception.CoordinateException;
 import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.exception.PathFindException;
 import problemofdrunks.objects.exception.MakeActionException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.objects.IFieldObject;
@@ -62,9 +63,9 @@ public class Beggar extends AMovingObject {
                     }
                 }
             }catch(InvalidCoordinateException e) {
-                System.out.println("Error in findBottle");
-                throw e;
+                throw new InvalidCoordinateException("Error in findBottle");
             }
+
         }
     }
 
@@ -76,18 +77,13 @@ public class Beggar extends AMovingObject {
                 findBottle();
 
             if(target != null) {
-                pathFinder.findPath(getCell(), target);
-                nextCell = pathFinder.getNext(getCell(), target);
+                if(pathFinder.findPath(getCell(), target))
+                    nextCell = pathFinder.getNext(getCell(), target);
             }
 
             if(nextCell == null) {
-               try {
-                    int n = random.nextInt(getField().getCellNeighbors(getCell()).size());
-                    nextCell = getField().getCellNeighbors(getCell()).get(n);
-               } catch (InvalidCoordinateException e) {
-                   e.printStackTrace(System.err);
-                   System.exit(0);
-               }
+                int n = random.nextInt(getField().getCellNeighbors(getCell()).size());
+                nextCell = getField().getCellNeighbors(getCell()).get(n);
             }
 
             if(target == nextCell){
@@ -102,8 +98,9 @@ public class Beggar extends AMovingObject {
                 setCell(nextCell);
             }
         } catch (CoordinateException e) {
-            System.out.println("Error in Beggar.makeAction()");
-            throw new MakeActionException();
+            throw new MakeActionException("Error in Beggar.makeAction()", e);
+        } catch (PathFindException e) {
+            throw new MakeActionException("Error in Beggar.makeAction()", e);
         }
 
     }

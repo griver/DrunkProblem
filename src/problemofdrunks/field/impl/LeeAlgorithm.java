@@ -1,9 +1,12 @@
 package problemofdrunks.field.impl;
 
 import problemofdrunks.field.IPathAlgorithm;
+import problemofdrunks.field.exception.CoordinateException;
 import problemofdrunks.field.exception.InvalidCoordinateException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
+import problemofdrunks.field.exception.InvalidPathArgumentException;
+import problemofdrunks.field.exception.PathFindException;
 
 import java.util.*;
 
@@ -29,7 +32,8 @@ public class LeeAlgorithm implements IPathAlgorithm {
 
     //===Methods=========================================================
     @Override
-    public boolean findPath(ICell startCell, ICell endCell) {
+    public boolean findPath(ICell startCell, ICell endCell)  throws InvalidPathArgumentException, PathFindException {
+        checkArgs(startCell, endCell);
         path.clear();
         HashMap<ICell, ICell> visited = new HashMap<ICell, ICell>();
 
@@ -52,8 +56,7 @@ public class LeeAlgorithm implements IPathAlgorithm {
                     }
                 }
             }catch (InvalidCoordinateException e) {
-                e.printStackTrace(System.err);
-                System.exit(0);
+                throw new PathFindException("Invalid Coordinate in PathFind method", e);
             }
             ++head;
         }
@@ -74,7 +77,9 @@ public class LeeAlgorithm implements IPathAlgorithm {
     }
 
     @Override
-    public ICell getNext(ICell startCell, ICell endCell) {
+    public ICell getNext(ICell startCell, ICell endCell) throws InvalidPathArgumentException, PathFindException {
+        checkArgs(startCell, endCell);
+
         if(path.isEmpty())
             return null;
 
@@ -92,9 +97,27 @@ public class LeeAlgorithm implements IPathAlgorithm {
     }
 
     @Override
-    public List<ICell> getPath(ICell startCell, ICell endCell) {
+    public List<ICell> getPath(ICell startCell, ICell endCell) throws PathFindException, InvalidPathArgumentException {
         this.findPath(startCell, endCell);
         return this.path;
+    }
+    
+    private void checkArgs(ICell start, ICell end) throws InvalidPathArgumentException {
+        try{
+            ICell fieldStart = field.getCell(start.getCoordinates());
+            ICell fieldEnd = field.getCell(end.getCoordinates());
+
+            if(start.equals(fieldStart))
+                if(end.equals(fieldEnd))
+                    return;
+
+            throw new InvalidPathArgumentException();
+
+        } catch (CoordinateException e) {
+          throw new InvalidPathArgumentException("Invalid Arguments", e);
+        } catch (NullPointerException e) {
+            throw new InvalidPathArgumentException("Null Argument", e);
+        }
     }
     //===/Methods========================================================
 
