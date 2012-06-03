@@ -1,9 +1,9 @@
 package problemofdrunks.objects.moving;
 
-import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.InvalidCoordinateException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.objects.IFieldObject;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.objects.IMovingObject;
 import problemofdrunks.objects.things.Bottle;
 import problemofdrunks.objects.things.Column;

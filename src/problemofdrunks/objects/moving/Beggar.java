@@ -1,10 +1,10 @@
 package problemofdrunks.objects.moving;
 
 import problemofdrunks.field.IPathAlgorithm;
-import problemofdrunks.field.exception.CoordinateException;
-import problemofdrunks.field.exception.InvalidCoordinateException;
-import problemofdrunks.field.exception.PathFindException;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.field.CoordinateException;
+import problemofdrunks.field.InvalidCoordinateException;
+import problemofdrunks.field.PathFindException;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.objects.IFieldObject;
 import problemofdrunks.objects.IMovingObject;
@@ -129,6 +129,10 @@ public class Beggar extends AMovingObject {
         this.bottle = bottle;
     }
 
+    public IFieldObject getBottle() {
+        return  bottle;
+    }
+
     public void setHouse(BottleToMoneyHouse house) {
         this.house = house;
     }
@@ -136,5 +140,10 @@ public class Beggar extends AMovingObject {
     public void setTarget(ICell target) {
         this.target = target;
     }
+
+    public ICell getTarget() {
+        return target;
+    }
+
     //==/Setters and getters=============================================
 }

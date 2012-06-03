@@ -1,4 +1,4 @@
-package problemofdrunks.game.exeption;
+package problemofdrunks.game;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,7 +1,6 @@
 package problemofdrunks.game;
 
 import problemofdrunks.field.IField;
-import problemofdrunks.game.exeption.GameStepException;
 import problemofdrunks.objects.IGameObject;
 
 /**
@@ -14,7 +13,7 @@ import problemofdrunks.objects.IGameObject;
 public interface IGame {
     IField getField();
     void setField(IField field);
-    void registerActiveObject(IGameObject obj);
-    void removeActiveObject(IGameObject obj);
+    void registerGameObject(IGameObject obj);
+    void removeGameObject(IGameObject obj);
     boolean nextStep() throws GameStepException;
 }

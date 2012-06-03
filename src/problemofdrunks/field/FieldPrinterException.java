@@ -1,4 +1,4 @@
-package problemofdrunks.field.exception;
+package problemofdrunks.field;
 
 import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 

@@ -1,7 +1,5 @@
 package problemofdrunks.objects;
 
-import problemofdrunks.objects.exception.MakeActionException;
-
 /**
  * Created by IntelliJ IDEA.
  * User: griver

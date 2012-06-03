@@ -1,7 +1,6 @@
 package problemofdrunks.game;
 
 import problemofdrunks.field.IField;
-import problemofdrunks.game.exeption.GameBuilderException;
 
 /**
  * Created by IntelliJ IDEA.

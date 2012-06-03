@@ -2,8 +2,10 @@ package problemofdrunks.objects.buildings;
 
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
+import problemofdrunks.field.CoordinateException;
 import problemofdrunks.game.IGame;
 import problemofdrunks.objects.IGameObject;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.objects.moving.Beggar;
 
 /**
@@ -20,42 +22,52 @@ public class BottleToMoneyHouse implements IGameObject {
     private IGame game;
     private Beggar beggar = null;
     private int counter = 0;
+    private int delay = 0;
     //===/Fields================================================
 
     //===Constructors===========================================
-    public BottleToMoneyHouse(IField field, ICell entrance, IGame game) {
+    public BottleToMoneyHouse(IField field, ICell entrance, IGame game, int delay) {
         this.field = field;
         this.entrance = entrance;
         this.game = game;
+        this.delay = delay;
     }
     //===/Constructors==========================================
 
     //===Methods================================================
     @Override
-    public void makeAction() {
+    public void makeAction() throws  MakeActionException {
         if(beggar != null)
             counter++;
-        if(counter  == 40)
-            releaseBeggar();
+        if(counter == delay) {
+            if(entrance.isEmpty())
+                releaseBeggar();
+        }
     }
 
 
-    public void letIn(Beggar beggar) {
+    public void letIn(Beggar beggar) throws MakeActionException {
         beggar.setBottle(null);
         beggar.setCell(null);
         beggar.setTarget(null);
 
-        game.removeActiveObject(beggar);
+        game.removeGameObject(beggar);
         this.beggar = beggar;
     }
 
-    private void releaseBeggar() {
+    private void releaseBeggar() throws MakeActionException {
         if(beggar == null)
             return;
-        Beggar beggar = this.beggar;
-        beggar.setCell(entrance);
-        game.registerActiveObject(beggar);
 
+        Beggar beggar = this.beggar;
+
+        try{
+            field.addObject(beggar, entrance.getCoordinates());
+        } catch(CoordinateException e) {
+            throw new MakeActionException("Error when try to add beggar", e);
+        }
+
+        game.registerGameObject(beggar);
         this.beggar = null;
         counter = 0;
     }
@@ -92,6 +104,14 @@ public class BottleToMoneyHouse implements IGameObject {
 
     public void setField(IField field) {
         this.field = field;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
+
+    public int getDelay() {
+        return delay;
     }
     //===/Setters and getters===================================
 }

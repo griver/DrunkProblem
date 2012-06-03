@@ -1,7 +1,7 @@
 package problemofdrunks.field.utils;
 
-import problemofdrunks.field.exception.FieldPrinterException;
-import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.FieldPrinterException;
+import problemofdrunks.field.InvalidCoordinateException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
 

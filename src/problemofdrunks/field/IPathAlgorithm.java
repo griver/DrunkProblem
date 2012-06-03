@@ -1,9 +1,6 @@
 package problemofdrunks.field;
 
 
-import problemofdrunks.field.exception.InvalidPathArgumentException;
-import problemofdrunks.field.exception.PathFindException;
-
 import java.util.List;
 
 /**

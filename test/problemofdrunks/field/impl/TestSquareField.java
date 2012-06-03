@@ -6,8 +6,8 @@ import junit.framework.Assert;
 
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
-import problemofdrunks.field.exception.InvalidCoordinateException;
-import problemofdrunks.field.exception.NotEmptyCellException;
+import problemofdrunks.field.InvalidCoordinateException;
+import problemofdrunks.field.NotEmptyCellException;
 
 import problemofdrunks.objects.things.Column;
 import problemofdrunks.objects.things.Lantern;

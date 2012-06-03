@@ -3,8 +3,8 @@ package problemofdrunks.field.impl;
 
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
-import problemofdrunks.field.exception.InvalidCoordinateException;
-import problemofdrunks.field.exception.NotEmptyCellException;
+import problemofdrunks.field.InvalidCoordinateException;
+import problemofdrunks.field.NotEmptyCellException;
 import problemofdrunks.objects.IFieldObject;
 
 

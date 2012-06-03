@@ -1,7 +1,7 @@
 package problemofdrunks.field.impl;
 
 import problemofdrunks.field.ICell;
-import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.InvalidCoordinateException;
 
 import java.util.ArrayList;
 import java.util.List;

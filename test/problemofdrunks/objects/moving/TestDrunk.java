@@ -3,9 +3,9 @@ package problemofdrunks.objects.moving;
 import org.junit.Test;
 import org.junit.Before;
 import problemofdrunks.field.IField;
-import problemofdrunks.field.exception.CoordinateException;
+import problemofdrunks.field.CoordinateException;
 import problemofdrunks.field.impl.SquareField;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.objects.things.Bottle;
 import problemofdrunks.objects.things.Column;
 
@@ -45,6 +45,15 @@ public class TestDrunk {
         drunk.makeAction();
         assertEquals(field.getCell(1, 0),drunk.getCell());
         assertEquals(drunk.getState(), DrunkStates.SLEEP);
+    }
+
+    @Test
+    public  void drunkMeetsSleeper() throws MakeActionException, CoordinateException {
+        Drunk sleeper = new Drunk();
+        field.addObject(sleeper, 0,0);
+        drunk.makeAction();
+        assertEquals(sleeper.getState(), drunk.getState());
+        assertEquals(field.getCell(1,0),drunk.getCell());
     }
 
 }

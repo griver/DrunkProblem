@@ -1,4 +1,4 @@
-package problemofdrunks.field.exception;
+package problemofdrunks.field;
 
 /**
  * Created by IntelliJ IDEA.

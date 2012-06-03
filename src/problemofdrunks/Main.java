@@ -1,11 +1,11 @@
 package problemofdrunks;
 
-import problemofdrunks.field.exception.FieldPrinterException;
+import problemofdrunks.field.FieldPrinterException;
 import problemofdrunks.field.impl.SquareField;
-import problemofdrunks.game.exeption.GameBuilderException;
+import problemofdrunks.game.GameBuilderException;
 import problemofdrunks.field.utils.FieldPrinter;
 import problemofdrunks.game.IGame;
-import problemofdrunks.game.exeption.GameStepException;
+import problemofdrunks.game.GameStepException;
 import problemofdrunks.game.impl.DrunkGame;
 import problemofdrunks.game.IGameBuilder;
 import problemofdrunks.game.impl.StandartBuilder;

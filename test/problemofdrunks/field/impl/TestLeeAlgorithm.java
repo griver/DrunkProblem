@@ -6,9 +6,9 @@ import static junit.framework.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 import problemofdrunks.field.ICell;
-import problemofdrunks.field.exception.CoordinateException;
-import problemofdrunks.field.exception.InvalidPathArgumentException;
-import problemofdrunks.field.exception.PathFindException;
+import problemofdrunks.field.CoordinateException;
+import problemofdrunks.field.InvalidPathArgumentException;
+import problemofdrunks.field.PathFindException;
 import problemofdrunks.objects.IFieldObject;
 
 import java.util.List;

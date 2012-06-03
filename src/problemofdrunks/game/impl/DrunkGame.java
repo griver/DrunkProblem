@@ -1,9 +1,9 @@
 package problemofdrunks.game.impl;
 
-import problemofdrunks.game.exeption.GameStepException;
+import problemofdrunks.game.GameStepException;
 import problemofdrunks.game.IGame;
 import problemofdrunks.objects.IGameObject;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.field.IField;
 
 import java.util.HashSet;
@@ -30,12 +30,12 @@ public class DrunkGame implements IGame {
 
     //===Methods=========================================================
     @Override
-    public void registerActiveObject(IGameObject object) {
+    public void registerGameObject(IGameObject object) {
         addedObjects.addLast(object);
     }
 
     @Override
-    public void removeActiveObject(IGameObject object) {
+    public void removeGameObject(IGameObject object) {
         removedObjects.addLast(object);
     }
 

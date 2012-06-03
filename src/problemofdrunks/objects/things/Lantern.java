@@ -1,6 +1,6 @@
 package problemofdrunks.objects.things;
 
-import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.InvalidCoordinateException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.objects.IMovingObject;
 

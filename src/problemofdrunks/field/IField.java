@@ -1,7 +1,5 @@
 package problemofdrunks.field;
 
-import problemofdrunks.field.exception.InvalidCoordinateException;
-import problemofdrunks.field.exception.NotEmptyCellException;
 import problemofdrunks.objects.IFieldObject;
 
 import java.util.List;

@@ -1,15 +1,13 @@
 package problemofdrunks.objects.buildings;
 
-import problemofdrunks.field.exception.InvalidCoordinateException;
 import problemofdrunks.game.IGame;
-import problemofdrunks.objects.exception.MakeActionException;
-import problemofdrunks.field.exception.NotEmptyCellException;
+import problemofdrunks.objects.MakeActionException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
 import problemofdrunks.objects.IGameObject;
 import problemofdrunks.objects.moving.Drunk;
 import problemofdrunks.objects.things.Bottle;
-import problemofdrunks.field.exception.CoordinateException;
+import problemofdrunks.field.CoordinateException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,6 +23,7 @@ public class Bar implements IGameObject {
     private ICell entrance;
     private int counter;
     private IGame game;
+    private int delay;
     //===/Fields=========================================================
 
     //===Constructors====================================================
@@ -32,37 +31,52 @@ public class Bar implements IGameObject {
         this.field = field;
         this.entrance = entrance;
         this.game = game;
-        counter = 0;
+        this.counter = 0;
+        delay = 20;
+    }
+
+    public Bar(IField field, ICell entrance, IGame game, int delay) {
+        this.field = field;
+        this.entrance = entrance;
+        this.game = game;
+        this.counter = 0;
+        this.delay = delay;
     }
     //===/Constructors===================================================
 
     //===Methods=========================================================
     @Override
     public void makeAction() throws MakeActionException {
-        try{
-            ++counter;
-            if(counter % 20 == 0) {
-                if(entrance.isEmpty())
-                    releaseDrunk();
-            }
-        }catch (CoordinateException e) {
-            throw new MakeActionException("Error in Bar.makeAction()", e);
+
+        ++counter;
+        if(counter % delay == 0) {
+            if(entrance.isEmpty())
+                releaseDrunk();
         }
     }
 
-    private void releaseDrunk() throws CoordinateException {
+    private void releaseDrunk() throws MakeActionException {
         Drunk newDrunk = new Drunk();
-
         newDrunk.setBottle(new Bottle());
+
         try {
             field.addObject(newDrunk, entrance.getCoordinates());
-        } catch(InvalidCoordinateException e) {
-            throw new InvalidCoordinateException("Invalid Entrance coordinate in Bar", e);
-        } catch (NotEmptyCellException e) {
-            System.err.println();
-            throw new NotEmptyCellException("Bar tried to add Drunk in occupied Cell", e);
+        } catch(CoordinateException e) {
+            throw new MakeActionException("Error when try to add drunk", e);
         }
-        game.registerActiveObject(newDrunk);
+        game.registerGameObject(newDrunk);
     }
     //===/Methods========================================================
+
+    //===Setters and getters=============================================
+
+    //===/Setters and getters============================================
+
+    public int getDelay() {
+        return delay;
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
 }

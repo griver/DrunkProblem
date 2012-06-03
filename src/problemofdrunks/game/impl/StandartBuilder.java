@@ -1,16 +1,16 @@
 package problemofdrunks.game.impl;
 
-import problemofdrunks.field.exception.InvalidCoordinateException;
-import problemofdrunks.field.exception.NotEmptyCellException;
+import problemofdrunks.field.InvalidCoordinateException;
+import problemofdrunks.field.NotEmptyCellException;
 import problemofdrunks.field.impl.LeeAlgorithm;
 import problemofdrunks.field.IField;
-import problemofdrunks.game.exeption.GameBuilderException;
+import problemofdrunks.game.GameBuilderException;
 import problemofdrunks.game.IGame;
 import problemofdrunks.game.IGameBuilder;
 import problemofdrunks.objects.buildings.Bar;
+import problemofdrunks.objects.buildings.PoliceDistrict;
 import problemofdrunks.objects.moving.Beggar;
 import problemofdrunks.objects.buildings.BottleToMoneyHouse;
-import problemofdrunks.objects.buildings.PoliceDistrict;
 import problemofdrunks.objects.moving.Policeman;
 import problemofdrunks.objects.things.Bottle;
 import problemofdrunks.objects.things.Lantern;
@@ -50,7 +50,7 @@ public class StandartBuilder implements IGameBuilder {
     
             Bar bar = new Bar(field, field.getCell(0,9), game);
             PoliceDistrict district = new PoliceDistrict(field, field.getCell(3, 14), game);
-            BottleToMoneyHouse beggarHouse = new BottleToMoneyHouse(field, field.getCell(14,4), game);
+            BottleToMoneyHouse beggarHouse = new BottleToMoneyHouse(field, field.getCell(14,4), game, 40);
     
             beggarHouse.setBeggar(beggar);
     
@@ -63,9 +63,9 @@ public class StandartBuilder implements IGameBuilder {
             field.addObject(bottle1, 10, 7);
     
             game.setField(field);
-            game.registerActiveObject(district);
-            game.registerActiveObject(bar);
-            game.registerActiveObject(beggarHouse);
+            game.registerGameObject(district);
+            game.registerGameObject(bar);
+            game.registerGameObject(beggarHouse);
 
         } catch (InvalidCoordinateException e) {
             throw new GameBuilderException("Invalid objects coordinates", e);

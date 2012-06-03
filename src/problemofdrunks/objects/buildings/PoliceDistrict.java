@@ -1,10 +1,10 @@
 package problemofdrunks.objects.buildings;
 
-import problemofdrunks.field.exception.CoordinateException;
-import problemofdrunks.field.exception.InvalidCoordinateException;
+import problemofdrunks.field.CoordinateException;
+import problemofdrunks.field.InvalidCoordinateException;
 import problemofdrunks.game.IGame;
-import problemofdrunks.objects.exception.MakeActionException;
-import problemofdrunks.field.exception.NotEmptyCellException;
+import problemofdrunks.objects.MakeActionException;
+import problemofdrunks.field.NotEmptyCellException;
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
 
@@ -86,7 +86,7 @@ public class PoliceDistrict implements IGameObject {
         policeman.setTarget(drunk.getCell());
         try {
             field.addObject(policeman, entrance.getCoordinates());
-            game.registerActiveObject(policeman);
+            game.registerGameObject(policeman);
         } catch (InvalidCoordinateException e) {
             throw new InvalidCoordinateException("Invalid entrance coordinate", e);
 
@@ -99,7 +99,7 @@ public class PoliceDistrict implements IGameObject {
     public void admitPoliceman(Policeman policeman) {
         policeman.setCell(null);
         policeman.setDrunk(null);
-        game.removeActiveObject(policeman);
+        game.removeGameObject(policeman);
         policemans.addLast(policeman);
     }
 

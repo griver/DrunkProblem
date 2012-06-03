@@ -1,4 +1,4 @@
-package problemofdrunks.objects.exception;
+package problemofdrunks.objects;
 
 /**
  * Created by IntelliJ IDEA.

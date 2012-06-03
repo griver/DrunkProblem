@@ -2,12 +2,11 @@ package problemofdrunks.objects.moving;
 
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IPathAlgorithm;
-import problemofdrunks.field.exception.InvalidPathArgumentException;
-import problemofdrunks.field.exception.PathFindException;
+import problemofdrunks.field.PathFindException;
 import problemofdrunks.objects.IFieldObject;
 import problemofdrunks.objects.IMovingObject;
 import problemofdrunks.objects.buildings.PoliceDistrict;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.objects.MakeActionException;
 
 /**
  * Created by IntelliJ IDEA.

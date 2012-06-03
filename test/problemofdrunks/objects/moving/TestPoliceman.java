@@ -6,11 +6,11 @@ import org.junit.Before;
 import problemofdrunks.field.ICell;
 import problemofdrunks.field.IField;
 import problemofdrunks.field.IPathAlgorithm;
-import problemofdrunks.field.exception.CoordinateException;
-import problemofdrunks.field.exception.PathFindException;
+import problemofdrunks.field.CoordinateException;
+import problemofdrunks.field.PathFindException;
 import problemofdrunks.field.impl.SquareField;
 import problemofdrunks.objects.buildings.PoliceDistrict;
-import problemofdrunks.objects.exception.MakeActionException;
+import problemofdrunks.objects.MakeActionException;
 
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
@@ -26,43 +26,64 @@ public class TestPoliceman {
     IField field;
     IPathAlgorithm pathAlgorithm;
     Policeman policeman;
+    PoliceDistrict district;
 
     @Before
     public void init() throws CoordinateException {
         pathAlgorithm = mock(IPathAlgorithm.class);
-        field = new SquareField(15,15);
+        district = mock(PoliceDistrict.class);
+        field = new SquareField(2,2);
         policeman = new Policeman(pathAlgorithm);
+
         field.addObject(policeman, 0, 0);
+        doReturn(field.getCell(0, 0)).when(district).getEntrance();
+        policeman.setDistrict(district);
+
     }
 
 
     @Test
     public void canTakeDrunkTest() throws CoordinateException, MakeActionException, PathFindException {
-        Drunk drunk = new Drunk();
+        Drunk drunk = spy(new Drunk());
+        field.addObject(drunk, 0,1);
         drunk.setState(DrunkStates.LYING);
-        field.addObject(drunk, 1, 3);
-        policeman.setTarget(field.getCell(1,3));
 
-        PoliceDistrict district = mock(PoliceDistrict.class);
-        policeman.setDistrict(district);
-        doReturn(field.getCell(0, 0)).when(district).getEntrance();
+        policeman.setTarget(field.getCell(0,1));
 
 
         when(pathAlgorithm.findPath(any(ICell.class), any(ICell.class))).thenReturn(true);
-        when(pathAlgorithm.getNext(any(ICell.class), any(ICell.class)))
-                .thenReturn(field.getCell(0,1))
-                .thenReturn(field.getCell(1,1))
-                .thenReturn(field.getCell(1,2))
-                .thenReturn(field.getCell(1,3));
+        when(pathAlgorithm.getNext(any(ICell.class), any(ICell.class))).thenReturn(field.getCell(0,1));
 
-        for(int i = 0; i < 4; ++i) {
-            policeman.makeAction();
-        }
+        policeman.makeAction();
 
         assertEquals(drunk, policeman.getDrunk());
-        assertTrue(field.getCell(1,3).isEmpty());
+        assertTrue(field.getCell(0,1).isEmpty());
         assertEquals(district.getEntrance(), policeman.getTarget());
-        assertEquals(field.getCell(1,2), policeman.getCell());
+        assertEquals(field.getCell(0,0), policeman.getCell());
+
+        verify(drunk).getColliding(policeman);
+        verify(drunk).setCell(null);
     }
 
+    @Test
+    public void whenDrunkIsNotLyingTest() throws CoordinateException, MakeActionException, PathFindException {
+        Drunk drunk= mock(Drunk.class);
+        field.addObject(drunk, 0,1);
+
+        doReturn(DrunkStates.AWAKE).when(drunk).getState();
+        policeman.processColliding(drunk);
+
+        verify(drunk).getState();
+        verify(drunk, never()).setCell(null);
+
+        assertEquals(policeman.getDrunk(), null);
+        assertEquals(field.getCell(0, 1).getFieldObject(), drunk);
+    }
+    @Test
+    public void whenGoToDistrict() throws  MakeActionException {
+        policeman.setTarget(district.getEntrance());
+        policeman.makeAction();
+
+        verify(district).admitPoliceman(policeman);
+    }
 }
